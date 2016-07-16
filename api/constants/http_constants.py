@@ -1,4 +1,3 @@
-
 HTTP_STATUS = {
 
     'OK': 200,
@@ -8,3 +7,4 @@ HTTP_STATUS = {
 }
 
 ARCHAEA_REQUEST_ID = 'archaea-request-id'
+API_VERSION_V1 = '/api/v1_0'
