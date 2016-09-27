@@ -23,8 +23,5 @@ log_error.addHandler(error_handler)
 # Making the error logger part of logger
 logger.error = log_error.error
 
-logger.error('ndskjhc')
-logger.info('ndskjhc info' )
-
 
 

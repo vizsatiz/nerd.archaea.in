@@ -28,7 +28,7 @@ def __wrong_content_type():
     return make_response(jsonify(content_type_failure), HTTP_STATUS['PRE_CONDITION_FAILED'])
 
 
-def header_validate(f):
+def validate_headers(f):
     """
     The decorator for basic auth
 
