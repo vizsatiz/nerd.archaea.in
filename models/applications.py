@@ -8,11 +8,12 @@ class Applications(Base):
     __tablename__ = 'applications'
 
     application_id = Column(Integer, primary_key=True, nullable=False)
-    account_id = Column(Integer, nullable=False)
+    account_guid = Column(String(64), unique=True, nullable=False)
     application_name = Column(String(64), nullable=False)
     application_guid = Column(String(64), unique=True, nullable=False)
     application_key = Column(String(64), nullable=False)
     application_secret = Column(String(255), nullable=False)
+    application_algorithm = Column(String(64), nullable=False)
     user_id = Column(Integer, nullable=False)
     app_metadata = Column(String(255), nullable=False)
 
@@ -25,6 +26,7 @@ class Applications(Base):
                  application_guid=None,
                  application_key=None,
                  application_secret=None,
+                 application_algorithm=None,
                  user_id=None,
                  app_metadata=None):
         """
@@ -43,6 +45,7 @@ class Applications(Base):
         self.application_guid = application_guid
         self.application_key = application_key
         self.application_secret = application_secret
+        self.application_algorithm = application_algorithm
         self.user_id = user_id
         self.app_metadata = app_metadata
 
