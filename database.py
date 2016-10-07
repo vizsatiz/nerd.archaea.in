@@ -19,7 +19,8 @@ def init_db():
 
     :return:
     """
-    # import models here
+    import models.dump
+    import models.applications
 
     Base.metadata.create_all(bind=engine)
 
