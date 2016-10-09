@@ -21,7 +21,7 @@ class Applications(Base):
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow())
 
     def __init__(self,
-                 account_id=None,
+                 account_guid=None,
                  application_name=None,
                  application_guid=None,
                  application_key=None,
@@ -32,7 +32,7 @@ class Applications(Base):
         """
         Apps published list
 
-        :param account_id:
+        :param account_guid:
         :param application_name:
         :param application_guid:
         :param application_key:
@@ -40,7 +40,7 @@ class Applications(Base):
         :param user_id:
         :param app_metadata:
         """
-        self.account_id = account_id
+        self.account_guid = account_guid
         self.application_name = application_name
         self.application_guid = application_guid
         self.application_key = application_key
