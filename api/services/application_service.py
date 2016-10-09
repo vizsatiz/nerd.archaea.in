@@ -33,4 +33,7 @@ class ApplicationService:
 
     @staticmethod
     def get_applications(query=None):
-        ApplicationAdapter.read()
+        if not query:
+            return ApplicationAdapter.get_all_apps()
+        else:
+            return ApplicationAdapter.read(query)

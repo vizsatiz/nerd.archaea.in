@@ -1,5 +1,6 @@
 from json import dumps
 from flask import Blueprint, request
+from api.common_helpers.transformers import Transformers
 from api.common_helpers.http_response import HttpResponse
 from api.common_helpers.common_constants import ApiVersions
 from api.services.application_service import ApplicationService
@@ -26,9 +27,11 @@ def app_publish():
     except Exception as e:
         return HttpResponse.internal_server_error(e.message)
 
+
 @publish_handler.route(ApiVersions.API_VERSION_V1 + '/application', methods=['GET'])
 def get_all_apps():
     try:
-        pass
+        applications = ApplicationService.get_applications()
+        return HttpResponse.success(Transformers.application_to_json_list(applications))
     except Exception as e:
         return HttpResponse.internal_server_error(e.message)

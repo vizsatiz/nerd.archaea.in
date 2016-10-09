@@ -69,3 +69,14 @@ class ApplicationAdapter(BaseAdapter):
         assert isinstance(applications, list)
         return applications
 
+    @staticmethod
+    def get_all_apps():
+        """
+        Get all apps
+
+        :return:
+        """
+        applications = db.query(Applications).all()
+        assert isinstance(applications, list)
+        return applications
+

@@ -24,6 +24,9 @@ class ApplicationAdapterTest(unittest.TestCase):
             'application_id': application_id
         })
 
+        all_apps = ApplicationAdapter.get_all_apps()
+
+        self.assertEqual(all_apps[0].application_name, 'updated_app_name')
         self.assertEqual(updated_app[0].application_name, 'updated_app_name')
 
         ApplicationAdapter.delete({
