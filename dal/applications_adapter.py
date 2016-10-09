@@ -9,7 +9,7 @@ class ApplicationAdapter(BaseAdapter):
         BaseAdapter.__init__(self)
 
     @staticmethod
-    def create(account_id=None,
+    def create(account_guid=None,
                application_name=None,
                application_guid=None,
                application_key=None,
@@ -17,7 +17,7 @@ class ApplicationAdapter(BaseAdapter):
                application_algorithm=None,
                user_id=None,
                app_metadata=None):
-        application = Applications(account_id=account_id,
+        application = Applications(account_guid=account_guid,
                                    application_name=application_name,
                                    application_guid=application_guid,
                                    application_key=application_key,
@@ -66,6 +66,17 @@ class ApplicationAdapter(BaseAdapter):
         """
         applications = db.query(Applications) \
             .filter_by(**query).all()
+        assert isinstance(applications, list)
+        return applications
+
+    @staticmethod
+    def get_all_apps():
+        """
+        Get all apps
+
+        :return:
+        """
+        applications = db.query(Applications).all()
         assert isinstance(applications, list)
         return applications
 

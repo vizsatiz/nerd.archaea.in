@@ -21,6 +21,7 @@ def init_db():
     """
     import models.dump
     import models.applications
+    import models.configuration
 
     Base.metadata.create_all(bind=engine)
 
