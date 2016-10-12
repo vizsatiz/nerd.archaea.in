@@ -26,7 +26,6 @@ class ApplicationService:
                                   user_id=user_id,
                                   app_metadata=app_metadata)
         return {
-            'application_guid': application_guid,
             'application_key': application_key,
             'application_secret': application_secret
         }
