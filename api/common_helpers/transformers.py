@@ -26,5 +26,5 @@ class Transformers:
     def application_to_json_list(applications):
         applications_list = []
         for application in applications:
-            applications_list.append(Transformers.application_to_json_list(application))
+            applications_list.append(Transformers.application_to_json(application))
         return applications_list

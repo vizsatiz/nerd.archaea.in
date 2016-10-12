@@ -10,10 +10,10 @@ class ApplicationService:
     @staticmethod
     def create_application(account_guid=None,
                            application_name=None,
+                           application_guid=None,
                            application_algorithm=None,
                            user_id=None,
                            app_metadata=None):
-        application_guid = CommonHelper.generate_guid()
         application_key = CommonHelper.generate_guid()
         application_secret = CommonHelper.generate_guid()
         # TODO validate metadata for each algorithm
@@ -26,7 +26,6 @@ class ApplicationService:
                                   user_id=user_id,
                                   app_metadata=app_metadata)
         return {
-            'application_guid': application_guid,
             'application_key': application_key,
             'application_secret': application_secret
         }
@@ -37,3 +36,7 @@ class ApplicationService:
             return ApplicationAdapter.get_all_apps()
         else:
             return ApplicationAdapter.read(query)
+
+    @staticmethod
+    def delete_application(query=None):
+        ApplicationAdapter.delete(query)
