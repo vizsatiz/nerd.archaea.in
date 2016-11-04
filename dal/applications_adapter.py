@@ -9,21 +9,21 @@ class ApplicationAdapter(BaseAdapter):
         BaseAdapter.__init__(self)
 
     @staticmethod
-    def create(account_guid=None,
+    def create(account_id=None,
                application_name=None,
                application_guid=None,
                application_key=None,
                application_secret=None,
                application_algorithm=None,
-               user_id=None,
+               created_user_id=None,
                app_metadata=None):
-        application = Applications(account_guid=account_guid,
+        application = Applications(account_id=account_id,
                                    application_name=application_name,
                                    application_guid=application_guid,
                                    application_key=application_key,
                                    application_secret=application_secret,
                                    application_algorithm=application_algorithm,
-                                   user_id=user_id,
+                                   created_user_id=created_user_id,
                                    app_metadata=app_metadata)
         db.add(application)
         db.commit()

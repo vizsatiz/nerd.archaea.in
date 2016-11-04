@@ -8,24 +8,25 @@ class ApplicationService:
         pass
 
     @staticmethod
-    def create_application(account_guid=None,
+    def create_application(account_id=None,
                            application_name=None,
-                           application_guid=None,
                            application_algorithm=None,
-                           user_id=None,
+                           created_user_id=None,
                            app_metadata=None):
         application_key = CommonHelper.generate_guid()
         application_secret = CommonHelper.generate_guid()
+        application_guid = CommonHelper.generate_guid()
         # TODO validate metadata for each algorithm
-        ApplicationAdapter.create(account_guid=account_guid,
+        ApplicationAdapter.create(account_id=account_id,
                                   application_name=application_name,
                                   application_guid=application_guid,
                                   application_key=application_key,
                                   application_secret=application_secret,
                                   application_algorithm=application_algorithm,
-                                  user_id=user_id,
+                                  created_user_id=created_user_id,
                                   app_metadata=app_metadata)
         return {
+            'application_guid': application_guid,
             'application_key': application_key,
             'application_secret': application_secret
         }
