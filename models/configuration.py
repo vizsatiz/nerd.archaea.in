@@ -11,7 +11,7 @@ class Configuration(Base):
     configuration_guid = Column(String(64), unique=True, nullable=False)
     bot_name = Column(String(64), nullable=False)
     account_guid = Column(String(64), unique=True, nullable=False)
-    plan_family = Column(Integer, nullable=False)
+    plan_family = Column(String(32), nullable=False)
     plan_metadata = Column(String(64), nullable=False)
 
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
@@ -31,5 +31,5 @@ class Configuration(Base):
         self.plan_metadata = plan_metadata
 
     def __repr__(self):
-        return '<Configuration %r>' % self.application_name
+        return '<Configuration %r>' % self.bot_name
 

@@ -14,12 +14,10 @@ class Transformers:
             'application_name': application.application_name,
             'application_key': application.application_key,
             'application_secret': application.application_key,
-            'account_guid': application.account_guid,
+            'account_id': application.account_id,
             'algorithm': application.application_algorithm,
-            'user_id': application.user_id,
-            'app_metadata': loads(application.app_metadata),
-            'created_at': str(application.created_at),
-            'updated_at': str(application.updated_at)
+            'created_user_id': application.created_user_id,
+            'app_metadata': loads(application.app_metadata)
         }
 
     @staticmethod
