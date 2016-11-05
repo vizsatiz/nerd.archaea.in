@@ -15,7 +15,7 @@ class Applications(Base):
     application_secret = Column(String(255), nullable=False)
     application_algorithm = Column(String(64), nullable=False)
     created_user_id = Column(Integer, nullable=False)
-    app_metadata = Column(String(255), nullable=False)
+    app_metadata = Column(String(1024), nullable=False)
 
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow())

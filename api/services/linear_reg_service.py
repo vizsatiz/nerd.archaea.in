@@ -7,7 +7,11 @@ class LinearRegressionService:
         pass
 
     @staticmethod
-    def create_application():
+    def initialize_linear_regression():
         pass
+
+    @staticmethod
+    def validate_parameters(parameters=None):
+        return True
 
 
