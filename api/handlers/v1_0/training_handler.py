@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from api.services.application_service import ApplicationService
 from api.common_helpers.http_response import HttpResponse
 from api.common_helpers.common_constants import ApiVersions
-from api.services.compute_service import ComputeEngineMapper
+from api.services.training_service import TrainingEngineMapper
 
 training_handler = Blueprint(__name__, __name__)
 
@@ -22,8 +22,8 @@ def train_app():
         })
         if len(application) == 0:
             return HttpResponse.bad_request('Invalid appKey or appSecret')
-        compute_engine = ComputeEngineMapper.get_compute_engie(algorithm=application.algorithm)
-        computed_output = compute_engine(application=application, data=data_point)
-        return HttpResponse.success(computed_output)
+        training_engine = TrainingEngineMapper.get_training_engine(algorithm=application.algorithm)
+        training_status = training_engine(application=application, training_data=training_data)
+        return HttpResponse.success(training_status)
     except Exception as e:
         return HttpResponse.internal_server_error(e.message)

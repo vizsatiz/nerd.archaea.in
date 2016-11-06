@@ -2,7 +2,7 @@ from api.common_helpers.common_constants import Algorithms
 from api.services.linear_reg_service import LinearRegressionService
 
 
-class ComputeEngineMapper:
+class TrainingEngineMapper:
 
     def __init__(self):
         pass
