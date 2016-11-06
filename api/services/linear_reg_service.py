@@ -1,5 +1,4 @@
-from machine_learning.linear_regression.lin_reg_builder import LinearRegressionBuilder
-
+from api.services.compute_service import ComputeEngineMapper
 
 class LinearRegressionService:
 
@@ -7,11 +6,17 @@ class LinearRegressionService:
         pass
 
     @staticmethod
-    def initialize_linear_regression():
-        pass
+    def compute_linear_regression(application=None, data=None):
+        if application is None:
+            raise Exception('Unknown application')
+        if data is None:
+            raise Exception('No data found to do the computation')
 
     @staticmethod
-    def validate_parameters(parameters=None):
-        return True
+    def train_linear_regression(application=None, training_data=None):
+        pass
+
+
+
 
 
