@@ -8,7 +8,7 @@ class ComputeEngineMapper:
         pass
 
     @staticmethod
-    def get_compute_engie(algorithm=None):
+    def get_compute_engine(algorithm=None):
         if algorithm == Algorithms.LINEAR_REGRESSION:
             return LinearRegressionService.compute_linear_regression
         else:
