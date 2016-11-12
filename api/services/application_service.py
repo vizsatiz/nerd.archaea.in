@@ -41,3 +41,7 @@ class ApplicationService:
     @staticmethod
     def delete_application(query=None):
         ApplicationAdapter.delete(query)
+
+    @staticmethod
+    def update_application(query=None, update_value=None):
+        ApplicationAdapter.update(query=query, updated_value=update_value)
