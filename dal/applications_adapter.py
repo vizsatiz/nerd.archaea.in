@@ -16,7 +16,8 @@ class ApplicationAdapter(BaseAdapter):
                application_secret=None,
                application_algorithm=None,
                created_user_id=None,
-               app_metadata=None):
+               app_metadata=None,
+               training_status=None):
         application = Applications(account_id=account_id,
                                    application_name=application_name,
                                    application_guid=application_guid,
@@ -24,7 +25,8 @@ class ApplicationAdapter(BaseAdapter):
                                    application_secret=application_secret,
                                    application_algorithm=application_algorithm,
                                    created_user_id=created_user_id,
-                                   app_metadata=app_metadata)
+                                   app_metadata=app_metadata,
+                                   training_status=training_status)
         db.add(application)
         db.commit()
         return application.application_id

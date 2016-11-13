@@ -17,7 +17,7 @@ class Transformers:
             'account_id': application.account_id,
             'algorithm': application.application_algorithm,
             'created_user_id': application.created_user_id,
-            'app_metadata': loads(application.app_metadata)
+            'parameters': loads(application.app_metadata)['parameters']
         }
 
     @staticmethod

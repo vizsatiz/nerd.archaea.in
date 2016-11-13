@@ -1,3 +1,4 @@
+from json import dumps
 from dal.applications_adapter import ApplicationAdapter
 from api.common_helpers.common_utils import CommonHelper
 
@@ -17,6 +18,10 @@ class ApplicationService:
         application_secret = CommonHelper.generate_guid()
         application_guid = CommonHelper.generate_guid()
         # TODO validate metadata for each algorithm
+        training_status = {
+            'status': 'done',
+            'reference': 'untrained'
+        }
         ApplicationAdapter.create(account_id=account_id,
                                   application_name=application_name,
                                   application_guid=application_guid,
@@ -24,7 +29,8 @@ class ApplicationService:
                                   application_secret=application_secret,
                                   application_algorithm=application_algorithm,
                                   created_user_id=created_user_id,
-                                  app_metadata=app_metadata)
+                                  app_metadata=app_metadata,
+                                  training_status=dumps(training_status))
         return {
             'application_guid': application_guid,
             'application_key': application_key,
@@ -41,3 +47,7 @@ class ApplicationService:
     @staticmethod
     def delete_application(query=None):
         ApplicationAdapter.delete(query)
+
+    @staticmethod
+    def update_application(query=None, update_value=None):
+        ApplicationAdapter.update(query=query, updated_value=update_value)
