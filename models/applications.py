@@ -1,6 +1,6 @@
 import datetime
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Text
 
 
 class Applications(Base):
@@ -15,7 +15,8 @@ class Applications(Base):
     application_secret = Column(String(255), nullable=False)
     application_algorithm = Column(String(64), nullable=False)
     created_user_id = Column(Integer, nullable=False)
-    app_metadata = Column(String(1024), nullable=False)
+    training_status = Column(String(64), nullable=True)
+    app_metadata = Column(Text, nullable=False)
 
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow())
@@ -28,18 +29,8 @@ class Applications(Base):
                  application_secret=None,
                  application_algorithm=None,
                  created_user_id=None,
-                 app_metadata=None):
-        """
-        Apps published list
-
-        :param account_guid:
-        :param application_name:
-        :param application_guid:
-        :param application_key:
-        :param application_secret:
-        :param user_id:
-        :param app_metadata:
-        """
+                 app_metadata=None,
+                 training_status=None):
         self.account_id = account_id
         self.application_name = application_name
         self.application_guid = application_guid
@@ -48,7 +39,7 @@ class Applications(Base):
         self.application_algorithm = application_algorithm
         self.created_user_id = created_user_id
         self.app_metadata = app_metadata
+        self.training_status = training_status
 
     def __repr__(self):
         return '<Applications %r>' % self.application_name
-

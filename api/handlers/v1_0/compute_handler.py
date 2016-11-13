@@ -17,18 +17,18 @@ def compute_app():
         except Exception:
             return HttpResponse.bad_request('One or more parameters are missing')
         application = ApplicationService.get_applications({
-            'app_key': app_key,
-            'app_secret': app_secret
+            'application_key': app_key,
+            'application_secret': app_secret
         })
         if len(application) == 0:
             return HttpResponse.bad_request('Invalid appKey or appSecret')
-        compute_engine = ComputeEngineMapper.get_compute_engine(algorithm=application.algorithm)
+        compute_engine = ComputeEngineMapper.get_compute_engine(algorithm=application[0].application_algorithm)
         try:
-            computed_output = compute_engine(application=application, data=data_point)
+            computed_output = compute_engine(application=application[0], data=data_point)
             return HttpResponse.success({
                 'prediction': computed_output
             })
         except Exception as e:
-            HttpResponse.bad_request('Unable to complete the computation : ' + e.message)
+            return HttpResponse.bad_request('Unable to complete the computation : ' + e.message)
     except Exception as e:
         return HttpResponse.internal_server_error(e.message)
