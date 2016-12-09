@@ -14,14 +14,18 @@ class ConfigurationAdapter(BaseAdapter):
                account_guid=None,
                plan_family=None,
                plan_metadata=None):
-        configuration = Configuration(configuration_guid=None,
-                                    bot_name=None,
-                                    account_guid=None,
-                                    plan_family=None,
-                                    plan_metadata=None)
-        db.add(configuration)
-        db.commit()
-        return configuration.application_id
+        try:
+            configuration = Configuration(configuration_guid=None,
+                                        bot_name=None,
+                                        account_guid=None,
+                                        plan_family=None,
+                                        plan_metadata=None)
+            db.add(configuration)
+            db.commit()
+            return configuration.application_id
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def update(query=None, updated_value=None):
@@ -32,10 +36,14 @@ class ConfigurationAdapter(BaseAdapter):
         :param updated_value:
         :return:
         """
-        db.query(Configuration) \
-            .filter_by(**query) \
-            .update(updated_value)
-        db.commit()
+        try:
+            db.query(Configuration) \
+                .filter_by(**query) \
+                .update(updated_value)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def delete(query=None):
@@ -45,10 +53,14 @@ class ConfigurationAdapter(BaseAdapter):
         :param query:
         :return:
         """
-        db.query(Configuration) \
-            .filter_by(**query) \
-            .delete()
-        db.commit()
+        try:
+            db.query(Configuration) \
+                .filter_by(**query) \
+                .delete()
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def read(query=None):
@@ -58,7 +70,11 @@ class ConfigurationAdapter(BaseAdapter):
         :param query:
         :return:
         """
-        configuration = db.query(Configuration) \
-            .filter_by(**query).all()
-        assert isinstance(configuration, list)
-        return configuration
+        try:
+            configuration = db.query(Configuration) \
+                .filter_by(**query).all()
+            assert isinstance(configuration, list)
+            return configuration
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)

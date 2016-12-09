@@ -18,18 +18,22 @@ class ApplicationAdapter(BaseAdapter):
                created_user_id=None,
                app_metadata=None,
                training_status=None):
-        application = Applications(account_id=account_id,
-                                   application_name=application_name,
-                                   application_guid=application_guid,
-                                   application_key=application_key,
-                                   application_secret=application_secret,
-                                   application_algorithm=application_algorithm,
-                                   created_user_id=created_user_id,
-                                   app_metadata=app_metadata,
-                                   training_status=training_status)
-        db.add(application)
-        db.commit()
-        return application.application_id
+        try:
+            application = Applications(account_id=account_id,
+                                       application_name=application_name,
+                                       application_guid=application_guid,
+                                       application_key=application_key,
+                                       application_secret=application_secret,
+                                       application_algorithm=application_algorithm,
+                                       created_user_id=created_user_id,
+                                       app_metadata=app_metadata,
+                                       training_status=training_status)
+            db.add(application)
+            db.commit()
+            return application.application_id
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def update(query=None, updated_value=None):
@@ -40,10 +44,14 @@ class ApplicationAdapter(BaseAdapter):
         :param updated_value:
         :return:
         """
-        db.query(Applications) \
-            .filter_by(**query) \
-            .update(updated_value)
-        db.commit()
+        try:
+            db.query(Applications) \
+                .filter_by(**query) \
+                .update(updated_value)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def delete(query=None):
@@ -53,10 +61,14 @@ class ApplicationAdapter(BaseAdapter):
         :param query:
         :return:
         """
-        db.query(Applications) \
-            .filter_by(**query) \
-            .delete()
-        db.commit()
+        try:
+            db.query(Applications) \
+                .filter_by(**query) \
+                .delete()
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def read(query=None):
@@ -66,10 +78,13 @@ class ApplicationAdapter(BaseAdapter):
         :param query:
         :return:
         """
-        applications = db.query(Applications) \
-            .filter_by(**query).all()
-        assert isinstance(applications, list)
-        return applications
+        try:
+            applications = db.query(Applications) \
+                .filter_by(**query).all()
+            return applications
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
     @staticmethod
     def get_all_apps():
@@ -78,7 +93,10 @@ class ApplicationAdapter(BaseAdapter):
 
         :return:
         """
-        applications = db.query(Applications).all()
-        assert isinstance(applications, list)
-        return applications
+        try:
+            applications = db.query(Applications).all()
+            return applications
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
 
