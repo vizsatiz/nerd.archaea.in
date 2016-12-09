@@ -4,3 +4,5 @@
 *.pyc
 # Ignoring log file changes
 *.log
+# Ignoring config file
+nerd.config.json
