@@ -67,7 +67,8 @@ class LinearRegressionTrainWorkerThread(threading.Thread):
             model_object = SciLearnModelPersistenceHelper.get_model_state(self.lr)
             weights = pickle.dumps(model_object)
             training_status = json.loads(self.application.training_status)
-            training_status['status'] = 'done '
+            training_status['status'] = 'done'
+            training_status['reference'] = 'trained'
             app_metadata = json.loads(self.application.app_metadata)
             app_metadata['weights'] = weights
             ApplicationService.update_application(query={
