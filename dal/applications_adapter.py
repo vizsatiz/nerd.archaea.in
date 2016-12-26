@@ -1,0 +1,102 @@
+from database import db
+from dal.base_adapter import BaseAdapter
+from models.applications import Applications
+
+
+class ApplicationAdapter(BaseAdapter):
+
+    def __init__(self):
+        BaseAdapter.__init__(self)
+
+    @staticmethod
+    def create(account_id=None,
+               application_name=None,
+               application_guid=None,
+               application_key=None,
+               application_secret=None,
+               application_algorithm=None,
+               created_user_id=None,
+               app_metadata=None,
+               training_status=None):
+        try:
+            application = Applications(account_id=account_id,
+                                       application_name=application_name,
+                                       application_guid=application_guid,
+                                       application_key=application_key,
+                                       application_secret=application_secret,
+                                       application_algorithm=application_algorithm,
+                                       created_user_id=created_user_id,
+                                       app_metadata=app_metadata,
+                                       training_status=training_status)
+            db.add(application)
+            db.commit()
+            return application.application_id
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
+
+    @staticmethod
+    def update(query=None, updated_value=None):
+        """
+        This method update the account
+
+        :param query:
+        :param updated_value:
+        :return:
+        """
+        try:
+            db.query(Applications) \
+                .filter_by(**query) \
+                .update(updated_value)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
+
+    @staticmethod
+    def delete(query=None):
+        """
+        This methods deletes the record
+
+        :param query:
+        :return:
+        """
+        try:
+            db.query(Applications) \
+                .filter_by(**query) \
+                .delete()
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
+
+    @staticmethod
+    def read(query=None):
+        """
+        Reading the records from a table
+
+        :param query:
+        :return:
+        """
+        try:
+            applications = db.query(Applications) \
+                .filter_by(**query).all()
+            return applications
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
+
+    @staticmethod
+    def get_all_apps():
+        """
+        Get all apps
+
+        :return:
+        """
+        try:
+            applications = db.query(Applications).all()
+            return applications
+        except Exception as e:
+            db.rollback()
+            raise Exception(e.message)
+

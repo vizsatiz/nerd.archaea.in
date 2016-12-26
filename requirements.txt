@@ -1,0 +1,3 @@
+sqlalchemy
+flask
+-e git+https://github.com/archaea-solutions/archaea.git@develop
